@@ -11,6 +11,23 @@ IF (QUAZIP_INCLUDE_DIR)
   SET(QUAZIP_FIND_QUIETLY TRUE)
 ENDIF (QUAZIP_INCLUDE_DIR)
 
+project(quazip-download NONE)
+
+include(ExternalProject)
+ExternalProject_Add(quazip
+        GIT_REPOSITORY git://github.com/stachenov/quazip.git
+        GIT_TAG v0.8.1
+        SOURCE_DIR "${CMAKE_BINARY_DIR}/quazip-src"
+        BINARY_DIR "${CMAKE_BINARY_DIR}/quazip-build"
+        CONFIGURE_COMMAND ""
+        BUILD_COMMAND ""
+        INSTALL_COMMAND ""
+        TEST_COMMAND ""
+        )
+
+set(QUAZIP_INCLUDE_DIR
+        "${CMAKE_BINARY_DIR}/quazip-src/quazip" PARENT_SCOPE)
+
 FIND_PATH(QUAZIP_INCLUDE_DIR NAMES quazip.h PATHS
 ${CMAKE_INCLUDE_PATH}
 ${CMAKE_INSTALL_PREFIX}/include
