@@ -9,3 +9,4 @@
 build/
 build-screencloud*/
 .idea/
+/cmake-build-debug/

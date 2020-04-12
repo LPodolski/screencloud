@@ -13,9 +13,9 @@ ENDIF (QUAZIP_INCLUDE_DIR)
 
 include(FetchContent)
 FetchContent_Declare(
-        quazip
-        GIT_REPOSITORY git://github.com/stachenov/quazip.git
-        GIT_TAG        v0.8.1
+    quazip
+    GIT_REPOSITORY git://github.com/stachenov/quazip.git
+    GIT_TAG        v0.8.1
 )
 FetchContent_GetProperties(quazip)
 if(NOT quazip_POPULATED)
@@ -28,10 +28,10 @@ set(QUAZIP_INCLUDE_DIR
         "${CMAKE_BINARY_DIR}/_deps/quazip-src/quazip")
 
 FIND_PATH(QUAZIP_INCLUDE_DIR NAMES quazip.h PATHS
-        ${CMAKE_INCLUDE_PATH}
-        ${CMAKE_INSTALL_PREFIX}/include
-        PATH_SUFFIXES include/quazip5 include/quazip
-        )
+${CMAKE_INCLUDE_PATH}
+${CMAKE_INSTALL_PREFIX}/include
+PATH_SUFFIXES include/quazip5 include/quazip
+)
 
 FIND_LIBRARY(QUAZIP_LIBRARY NAMES quazip5 quazip-qt5 quazip )
 
