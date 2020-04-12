@@ -11,28 +11,27 @@ IF (QUAZIP_INCLUDE_DIR)
   SET(QUAZIP_FIND_QUIETLY TRUE)
 ENDIF (QUAZIP_INCLUDE_DIR)
 
-project(quazip-download NONE)
-
-include(ExternalProject)
-ExternalProject_Add(quazip
+include(FetchContent)
+FetchContent_Declare(
+        quazip
         GIT_REPOSITORY git://github.com/stachenov/quazip.git
-        GIT_TAG v0.8.1
-        SOURCE_DIR "${CMAKE_BINARY_DIR}/quazip-src"
-        BINARY_DIR "${CMAKE_BINARY_DIR}/quazip-build"
-        CONFIGURE_COMMAND ""
-        BUILD_COMMAND ""
-        INSTALL_COMMAND ""
-        TEST_COMMAND ""
-        )
+        GIT_TAG        v0.8.1
+)
+FetchContent_GetProperties(quazip)
+if(NOT quazip_POPULATED)
+    FetchContent_Populate(quazip)
+    add_subdirectory(${quazip_SOURCE_DIR} ${quazip_BINARY_DIR})
+endif()
+#FetchContent_MakeAvailable(quazip)
 
 set(QUAZIP_INCLUDE_DIR
-        "${CMAKE_BINARY_DIR}/quazip-src/quazip" PARENT_SCOPE)
+        "${CMAKE_BINARY_DIR}/_deps/quazip-src/quazip")
 
 FIND_PATH(QUAZIP_INCLUDE_DIR NAMES quazip.h PATHS
-${CMAKE_INCLUDE_PATH}
-${CMAKE_INSTALL_PREFIX}/include
-PATH_SUFFIXES include/quazip5 include/quazip
-)
+        ${CMAKE_INCLUDE_PATH}
+        ${CMAKE_INSTALL_PREFIX}/include
+        PATH_SUFFIXES include/quazip5 include/quazip
+        )
 
 FIND_LIBRARY(QUAZIP_LIBRARY NAMES quazip5 quazip-qt5 quazip )
 
